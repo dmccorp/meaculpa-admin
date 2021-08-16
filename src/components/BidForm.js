@@ -34,11 +34,11 @@ export default function BidForm() {
       console.log("Date.parse(startTime),,", Date.parse(startTime));
       console.log("Date.parse(end),,", Date.parse(endTime));
       const body = {
-        minbidamt: price,
+        minbidamt: parseFloat(price),
         starttime: Date.parse(startTime),
         endtime: Date.parse(endTime),
-        productid: product,
-        entryfee: entryFee,
+        productid: parseInt(product),
+        entryfee: parseInt(entryFee),
       };
       createBidRoom(body);
     } else {
