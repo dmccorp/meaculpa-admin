@@ -1,10 +1,8 @@
 module.exports = {
   theme: {
     fontFamily: {
-      sans: ["Inter"]
-    }
+      sans: ["Inter"],
+    },
   },
-  plugins: [
-    require('@tailwindcss/forms'),
-  ]
-}
+  plugins: [require("@tailwindcss/forms")],
+};

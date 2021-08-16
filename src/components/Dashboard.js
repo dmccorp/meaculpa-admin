@@ -7,8 +7,9 @@ import Products from '../pages/Products';
 import CreateProduct from '../pages/CreateProducts';
 
 export default function Dashboard() {
-  return <div className="flex flex-wrap bg-gray-100 w-full h-screen">
-    <Sidebar />
+  return (
+    <div className="flex flex-wrap bg-gray-100 w-full h-screen">
+      <Sidebar />
 
     <div className="w-9/12">
       <div className="p-4 text-gray-500">
@@ -34,5 +35,6 @@ export default function Dashboard() {
         </Switch>
       </div>
     </div>
-  </div>;
+    </div>
+  );
 }

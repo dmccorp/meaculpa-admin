@@ -116,7 +116,7 @@ function Table() {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                       <a
-                        href="#"
+                        href="/edit"
                         className="text-indigo-600 hover:text-indigo-900"
                       >
                         Edit
@@ -137,7 +137,12 @@ export default function Biddings() {
   return (
     <div>
       <div className="py-5">
-        <Link to="/biddings/new" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">New</Link>
+        <Link
+          to="/biddings/new"
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          New
+        </Link>
       </div>
       <Table />
     </div>
