@@ -1,55 +1,50 @@
-import React, { useState, useEffect } from 'react';
-import { getAllProducts } from '../api/apiProducts';
-import { createBidRoom } from '../api/apiBidding';
+import React, { useState, useEffect } from "react";
+import { getAllProducts } from "../api/apiProducts";
+import { createBidRoom } from "../api/apiBidding";
 
 export default function BidForm() {
+  const [price, setPrice] = useState(null);
+  const [startTime, setStartTime] = useState("");
+  const [endTime, setEndTime] = useState("");
+  const [products, setProducts] = useState([]);
+  const [product, setProduct] = useState(0);
+  const [entryFee, setEntryFee] = useState(0);
 
-  const [ price, setPrice] = useState(null);
-  const [ startTime, setStartTime] = useState('');
-  const [ endTime, setEndTime] = useState('');
-  const [ products, setProducts ] = useState([]);
-  const [ product, setProduct ] = useState(0);
-  const [ entryFee, setEntryFee ] = useState(0);
-
-  async function getProducts(){
+  async function getProducts() {
     let data = await getAllProducts();
-    if(data){
-      setProducts(data)
+    if (data) {
+      setProducts(data);
     }
-  };
-
-  useEffect(() =>{
-      getProducts();
-  }, []);
-
-  const setDropdown = () =>{
-     return products.map( item =>{
-      return(
-        <option value={item.productid}>{item.name}</option>
-      )
-    })
   }
 
-  const handleFormSubmit = (e) =>{
+  useEffect(() => {
+    getProducts();
+  }, []);
+
+  const setDropdown = () => {
+    return products.map((item) => {
+      return <option value={item.productid}>{item.name}</option>;
+    });
+  };
+
+  const handleFormSubmit = (e) => {
     e.preventDefault();
 
-    if(price && startTime && endTime && product > 0 && entryFee){
-
-      console.log('Date.parse(startTime),,', Date.parse(startTime))
-      console.log('Date.parse(end),,', Date.parse(endTime))
+    if (price && startTime && endTime && product > 0 && entryFee) {
+      console.log("Date.parse(startTime),,", Date.parse(startTime));
+      console.log("Date.parse(end),,", Date.parse(endTime));
       const body = {
         minbidamt: price,
         starttime: Date.parse(startTime),
         endtime: Date.parse(endTime),
         productid: product,
-        entryfee: entryFee
-      }
-      createBidRoom(body)
-    }else{
-      alert('Please fill all fields')
+        entryfee: entryFee,
+      };
+      createBidRoom(body);
+    } else {
+      alert("Please fill all fields");
     }
-  }
-
+  };
 
   return (
     <div>
@@ -69,7 +64,7 @@ export default function BidForm() {
                     Bid amount
                   </label>
                   <input
-                    onChange = { (e) => setPrice(e.target.value)}
+                    onChange={(e) => setPrice(e.target.value)}
                     type="number"
                     name="price"
                     value={price}
@@ -86,7 +81,7 @@ export default function BidForm() {
                     Entry fee
                   </label>
                   <input
-                    onChange = { (e) => setEntryFee(e.target.value)}
+                    onChange={(e) => setEntryFee(e.target.value)}
                     type="number"
                     name="entry-fee"
                     value={entryFee}
@@ -107,8 +102,8 @@ export default function BidForm() {
                     name="product"
                     id="products"
                     value={product}
-                    onChange={ (e) => setProduct(e.target.value)}
-                    >
+                    onChange={(e) => setProduct(e.target.value)}
+                  >
                     <option value="0">Select</option>
                     {products && setDropdown()}
                   </select>
@@ -121,7 +116,7 @@ export default function BidForm() {
                     start time
                   </label>
                   <input
-                    onChange = { (e) => setStartTime(e.target.value)}
+                    onChange={(e) => setStartTime(e.target.value)}
                     type="datetime-local"
                     name="start-time"
                     id="start-time"
@@ -137,7 +132,7 @@ export default function BidForm() {
                     end time
                   </label>
                   <input
-                    onChange = { (e) => setEndTime(e.target.value)}
+                    onChange={(e) => setEndTime(e.target.value)}
                     type="datetime-local"
                     name="end-time"
                     id="end-time"
@@ -148,9 +143,9 @@ export default function BidForm() {
               </div>
             </div>
             <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
-            <a
+              <a
                 className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                href='/biddings'
+                href="/biddings"
               >
                 Back
               </a>

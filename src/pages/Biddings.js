@@ -1,20 +1,17 @@
 import { Link } from "react-router-dom";
-import React, { useState, useEffect} from 'react';
-import { getAllBids } from '../api/apiBidding';
-import moment from 'moment';
+import React, { useState, useEffect } from "react";
+import { getAllBids } from "../api/apiBidding";
+import moment from "moment";
 
 function Table() {
+  const [data, setData] = useState([]);
 
-  const [data, setData] = useState([])
-
-  async function getUserDetails(){
+  async function getUserDetails() {
     const res = await getAllBids();
-    if(res)
-    setData(res);
+    if (res) setData(res);
   }
 
-
-  useEffect(() =>{
+  useEffect(() => {
     getUserDetails();
   }, []);
 
@@ -30,19 +27,19 @@ function Table() {
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
-                    Room 
+                    Room
                   </th>
                   <th
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
-                    Product 
+                    Product
                   </th>
                   <th
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
-                    Price 
+                    Price
                   </th>
                   <th
                     scope="col"
@@ -91,9 +88,7 @@ function Table() {
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">
-                        {item.price}
-                      </div>
+                      <div className="text-sm text-gray-900">{item.price}</div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="text-sm text-gray-900">
@@ -105,7 +100,7 @@ function Table() {
                         Active
                       </span> */}
                       <div className="text-sm text-gray-900">
-                        {moment(item.startdate).format("MM/DD/YYYY")} 
+                        {moment(item.startdate).format("MM/DD/YYYY")}
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
