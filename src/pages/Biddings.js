@@ -1,7 +1,23 @@
 import { Link } from "react-router-dom";
+import React, { useState, useEffect} from 'react';
+import { getAllBids } from '../api/apiBidding';
+import moment from 'moment';
 
 function Table() {
-  const people = [];
+
+  const [data, setData] = useState([])
+
+  async function getUserDetails(){
+    const res = await getAllBids();
+    if(res)
+    setData(res);
+  }
+
+
+  useEffect(() =>{
+    getUserDetails();
+  }, []);
+
   return (
     <div className="flex flex-col">
       <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -14,25 +30,43 @@ function Table() {
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
-                    Name
+                    Room 
                   </th>
                   <th
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
-                    Title
+                    Product 
                   </th>
                   <th
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
-                    Status
+                    Price 
                   </th>
                   <th
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
-                    Role
+                    Entry fee
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                    date
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                    start time
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                    end time
                   </th>
                   <th scope="col" className="relative px-6 py-3">
                     <span className="sr-only">Edit</span>
@@ -40,42 +74,45 @@ function Table() {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {people.map((person) => (
-                  <tr key={person.email}>
+                {data.map((item) => (
+                  <tr key={item.roomid}>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
-                        <div className="flex-shrink-0 h-10 w-10">
-                          <img
-                            className="h-10 w-10 rounded-full"
-                            src={person.image}
-                            alt=""
-                          />
-                        </div>
                         <div className="ml-4">
                           <div className="text-sm font-medium text-gray-900">
-                            {person.name}
-                          </div>
-                          <div className="text-sm text-gray-500">
-                            {person.email}
+                            {item.roomid}
                           </div>
                         </div>
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="text-sm text-gray-900">
-                        {person.title}
-                      </div>
-                      <div className="text-sm text-gray-500">
-                        {person.department}
+                        {item.productname}
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                      <div className="text-sm text-gray-900">
+                        {item.price}
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="text-sm text-gray-900">
+                        {item.entryfee}
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      {/* <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                         Active
-                      </span>
+                      </span> */}
+                      <div className="text-sm text-gray-900">
+                        {moment(item.startdate).format("MM/DD/YYYY")} 
+                      </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {person.role}
+                      {moment(item.startdate).format("hh:mm a")}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      {moment(item.startdate).format("hh:mm a")}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                       <a
