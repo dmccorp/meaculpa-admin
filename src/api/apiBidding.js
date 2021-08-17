@@ -4,7 +4,7 @@ const baseURL = "http://socket.basithkunimal.com/";
 
 export function getAllBids() {
   return axios
-    .post(`${baseURL}api/room/getall`)
+    .get(`${baseURL}api/room/getall`)
     .then((res) => {
       return res.data.data;
     })

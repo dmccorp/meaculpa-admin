@@ -111,14 +111,14 @@ function Table() {
                         Active
                       </span> */}
                       <div className="text-sm text-gray-900">
-                        {moment(item.startdate).format("MM/DD/YYYY")}
+                        {moment(item.starttime).format("MM/DD/YYYY")}
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {moment(item.startdate).format("hh:mm a")}
+                      {moment(item.starttime).format("hh:mm a")}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {moment(item.startdate).format("hh:mm a")}
+                      {moment(item.endtime).format("hh:mm a")}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                       <a
