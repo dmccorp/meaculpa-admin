@@ -42,12 +42,6 @@ function Table() {
                   >
                     Category
                   </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                  >
-                    Image
-                  </th>
                   <th scope="col" className="relative px-6 py-3">
                     <span className="sr-only">Edit</span>
                   </th>
@@ -56,8 +50,15 @@ function Table() {
               <tbody className="bg-white divide-y divide-gray-200 overflow-y-scroll">
                 {data.map((item) => (
                   <tr key={item.productid}>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{item.name}</div>
+                    <td className="px-6 py-4 w-10/12">
+                      <div className="flex">
+                        <img
+                          className="h-24 mr-4"
+                          alt={item.name}
+                          src={item.imgurl}
+                        />
+                        <div className="text-sm text-gray-900">{item.name}</div>
+                      </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="text-sm text-gray-900">{item.price}</div>
@@ -65,15 +66,6 @@ function Table() {
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="text-sm text-gray-900">
                         {item.categoryid}
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">
-                        <img
-                          className="h-24"
-                          alt={item.name}
-                          src={item.imgurl}
-                        />
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
