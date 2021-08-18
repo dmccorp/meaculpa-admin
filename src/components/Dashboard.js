@@ -4,6 +4,7 @@ import { Switch, Route } from "react-router-dom";
 import Rooms from "../pages/Rooms";
 import CreateRoom from "../pages/CreateRoom";
 import Products from "../pages/Products";
+import EditProduct from "../pages/EditProduct";
 import CreateProduct from "../pages/CreateProducts";
 import EditRoom from "../pages/EditRoom";
 
@@ -15,6 +16,9 @@ export default function Dashboard() {
       <div className="w-9/12">
         <div className="p-4 text-gray-500">
           <Switch>
+            <Route path="/product/edit/:id">
+              <EditProduct />
+            </Route>
             <Route path="/product/new">
               <CreateProduct />
             </Route>
