@@ -4,6 +4,8 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
+export const API_URL = "http://socket.basithkunimal.com";
+
 ReactDOM.render(
   <React.StrictMode>
     <App />

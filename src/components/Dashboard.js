@@ -1,10 +1,11 @@
 import Sidebar from "./Sidebar";
 import Table from "./Table";
 import { Switch, Route } from "react-router-dom";
-import Biddings from "../pages/Biddings";
-import CreateBidding from "../pages/CreateBidding";
+import Rooms from "../pages/Rooms";
+import CreateRoom from "../pages/CreateRoom";
 import Products from "../pages/Products";
 import CreateProduct from "../pages/CreateProducts";
+import EditRoom from "../pages/EditRoom";
 
 export default function Dashboard() {
   return (
@@ -20,11 +21,14 @@ export default function Dashboard() {
             <Route path="/products">
               <Products />
             </Route>
-            <Route path="/biddings/new">
-              <CreateBidding />
+            <Route path="/rooms/new">
+              <CreateRoom />
             </Route>
-            <Route path="/biddings">
-              <Biddings />
+            <Route path="/rooms/:id">
+              <EditRoom />
+            </Route>
+            <Route path="/rooms">
+              <Rooms />
             </Route>
             <Route path="/users">users</Route>
             <Route path="/" exact>

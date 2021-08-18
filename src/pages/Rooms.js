@@ -51,7 +51,7 @@ function Table() {
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
-                    Bid start price
+                    Start Amt
                   </th>
                   <th
                     scope="col"
@@ -88,7 +88,7 @@ function Table() {
                         </div>
                       </div>
                     </td>
-                    <td className="px-6 py-4">
+                    <td className="px-6 py-4 w-4/12">
                       <div className="text-sm text-gray-900">
                         {item.productname}
                       </div>
@@ -103,7 +103,7 @@ function Table() {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="text-sm text-gray-900">
-                        {item.minbidamt}
+                        {item.startbidamt}
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
@@ -121,12 +121,12 @@ function Table() {
                       {moment(item.endtime).format("hh:mm a")}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <a
-                        href="/edit"
+                      <Link
+                        to={"/rooms/" + item.roomid}
                         className="text-indigo-600 hover:text-indigo-900"
                       >
                         Edit
-                      </a>
+                      </Link>
                     </td>
                   </tr>
                 ))}
@@ -144,7 +144,7 @@ export default function Biddings() {
     <div>
       <div className="py-5">
         <Link
-          to="/biddings/new"
+          to="/rooms/new"
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         >
           New

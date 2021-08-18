@@ -86,7 +86,7 @@ export default function Sidebar() {
         </li>
         <li>
           <NavLink
-            to="/biddings"
+            to="/rooms"
             activeClassName="bg-gray-200"
             className="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline"
           >
@@ -106,7 +106,7 @@ export default function Sidebar() {
                 />
               </svg>
             </span>
-            <span>Biddings</span>
+            <span>Rooms</span>
           </NavLink>
         </li>
         <li>

@@ -1,10 +1,9 @@
 import axios from "axios";
-
-const baseURL = "http://socket.basithkunimal.com/";
+import { API_URL } from "..";
 
 export function getAllBids() {
   return axios
-    .get(`${baseURL}api/room/getall`)
+    .get(`${API_URL}/api/room/getall`)
     .then((res) => {
       return res.data.data;
     })
@@ -12,10 +11,21 @@ export function getAllBids() {
 }
 
 export function createBidRoom(data) {
-  return axios
-    .post(`${baseURL}api/room/create`, data)
-    .then((res) => {
-      window.location.href = "/biddings";
-    })
-    .catch((e) => {});
+  return fetch(`${API_URL}/api/room/create`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+}
+
+export function editBidRoom(data) {
+  return fetch(`${API_URL}/api/room/edit`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  }).catch((e) => {});
 }
