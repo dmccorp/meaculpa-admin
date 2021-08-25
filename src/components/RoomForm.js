@@ -33,10 +33,15 @@ export default function RoomForm({ form, update }) {
       setPrice(update.startbidamt);
       setEntryFee(update.entryfee);
       setProduct(update.productid);
-      const starttime = new Date(update.starttime).toISOString();
-      setStartTime(starttime.slice(0, starttime.length - 8));
-      const endtime = new Date(update.starttime).toISOString();
-      setEndTime(endtime.slice(0, endtime.length - 8));
+      const tzoffset = new Date().getTimezoneOffset() * 60000;
+      const starttime = new Date(update.starttime - tzoffset)
+        .toISOString()
+        .slice(0, -8);
+      setStartTime(starttime);
+      const endtime = new Date(update.endtime - tzoffset)
+        .toISOString()
+        .slice(0, -8);
+      setEndTime(endtime);
       setStepAmount(update.stepamt);
     }
   }, [update]);
@@ -98,7 +103,7 @@ export default function RoomForm({ form, update }) {
               htmlFor="products"
               className="block text-sm font-medium text-gray-700"
             >
-              Products
+              Product
             </label>
             <select
               className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
@@ -116,7 +121,7 @@ export default function RoomForm({ form, update }) {
               htmlFor="start-time"
               className="block text-sm font-medium text-gray-700"
             >
-              start time
+              Start time
             </label>
             <input
               onChange={(e) => setStartTime(e.target.value)}
@@ -132,7 +137,7 @@ export default function RoomForm({ form, update }) {
               htmlFor="end-time"
               className="block text-sm font-medium text-gray-700"
             >
-              end time
+              End time
             </label>
             <input
               onChange={(e) => setEndTime(e.target.value)}
@@ -145,7 +150,7 @@ export default function RoomForm({ form, update }) {
           </div>
           <div className="col-span-6 sm:col-span-2">
             <label
-              htmlFor="end-time"
+              htmlFor="stepamount"
               className="block text-sm font-medium text-gray-700"
             >
               Step amount
@@ -164,7 +169,7 @@ export default function RoomForm({ form, update }) {
       <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
         <a
           className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-          href="/biddings"
+          href="/rooms"
         >
           Back
         </a>

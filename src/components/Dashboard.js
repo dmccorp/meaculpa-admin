@@ -13,8 +13,8 @@ export default function Dashboard() {
     <div className="flex flex-wrap bg-gray-100 w-full h-screen">
       <Sidebar />
 
-      <div className="w-9/12">
-        <div className="p-4 text-gray-500">
+      <div className="w-9/12 h-full">
+        <div className="p-4 text-gray-500 h-full overflow-y-scroll">
           <Switch>
             <Route path="/product/edit/:id">
               <EditProduct />
