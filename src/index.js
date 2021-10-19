@@ -3,8 +3,20 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import { initializeApp } from "firebase/app";
 
 export const API_URL = "http://socket.basithkunimal.com";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDU9BN7f2SwEtN2-lyinclf4CqLvAijYZ0",
+  authDomain: "meaculpa-62470.firebaseapp.com",
+  projectId: "meaculpa-62470",
+  storageBucket: "meaculpa-62470.appspot.com",
+  messagingSenderId: "53516764614",
+  appId: "1:53516764614:web:9538f0608fec3c85f31ec7",
+  measurementId: "G-NC3WKZ8BHT",
+};
+initializeApp(firebaseConfig);
 
 ReactDOM.render(
   <React.StrictMode>

@@ -1,9 +1,15 @@
+import { getAuth } from "@firebase/auth";
 import axios from "axios";
 import { API_URL } from "..";
 
-export function getAllBids() {
+export async function getAllBids() {
+  const token = await getAuth().currentUser.getIdToken();
   return axios
-    .get(`${API_URL}/api/room/getall`)
+    .get(`${API_URL}/api/room/getall`, {
+      headers: {
+        "X-Access-Token": token,
+      },
+    })
     .then((res) => {
       return res.data.data;
     })

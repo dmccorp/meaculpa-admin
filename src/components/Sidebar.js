@@ -1,17 +1,21 @@
 import { Link, NavLink } from "react-router-dom";
+import { getAuth } from "firebase/auth";
 
 export default function Sidebar() {
+  function logout() {
+    getAuth().signOut();
+  }
   return (
     <div className="w-3/12 bg-white rounded p-3 shadow-lg">
       <div className="flex items-center space-x-4 p-2 mb-5">
         <img
           className="h-12 rounded-full"
-          src="http://www.gravatar.com/avatar/2acfb745ecf9d4dccb3364752d17f65f?s=260&d=mp"
-          alt="James Bhatta"
+          src={getAuth().currentUser.photoURL}
+          alt={getAuth().currentUser.displayName}
         />
         <div>
           <h4 className="font-semibold text-lg text-gray-700 capitalize font-poppins tracking-wide">
-            James Bhatta
+            {getAuth().currentUser.displayName}
           </h4>
           <span className="text-sm tracking-wide flex items-center space-x-1">
             <svg
@@ -137,106 +141,6 @@ export default function Sidebar() {
         </li>
         <li>
           <NavLink
-            to="/messages"
-            activeClassName="bg-gray-200"
-            className="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline"
-          >
-            <span className="text-gray-600">
-              <svg
-                className="h-5"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"
-                ></path>
-              </svg>
-            </span>
-            <span>Personal messages</span>
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            to="/profile"
-            activeClassName="bg-gray-200"
-            className="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline"
-          >
-            <span className="text-gray-600">
-              <svg
-                className="h-5"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                />
-              </svg>
-            </span>
-            <span>My profile</span>
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            to="/orders"
-            activeClassName="bg-gray-200"
-            className="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline"
-          >
-            <span className="text-gray-600">
-              <svg
-                className="h-5"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
-                />
-              </svg>
-            </span>
-            <span>My orders</span>
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            to="/wishlist"
-            activeClassName="bg-gray-200"
-            className="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline"
-          >
-            <span className=" text-gray-600">
-              <svg
-                className="h-5"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                />
-              </svg>
-            </span>
-            <span>My wishlist</span>
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
             to="/settings"
             activeClassName="bg-gray-200"
             className="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline"
@@ -261,33 +165,8 @@ export default function Sidebar() {
           </NavLink>
         </li>
         <li>
-          <NavLink
-            to="/password"
-            activeClassName="bg-gray-200"
-            className="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline"
-          >
-            <span className="text-gray-600">
-              <svg
-                className="h-5"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
-                />
-              </svg>
-            </span>
-            <span>Change password</span>
-          </NavLink>
-        </li>
-        <li>
-          <Link
-            to="/logout"
+          <button
+            onClick={logout}
             className="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline"
           >
             <span className="text-gray-600">
@@ -307,7 +186,7 @@ export default function Sidebar() {
               </svg>
             </span>
             <span>Logout</span>
-          </Link>
+          </button>
         </li>
       </ul>
     </div>
