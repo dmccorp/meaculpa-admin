@@ -5,7 +5,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { initializeApp } from "firebase/app";
 
-export const API_URL = "https://api.meaculpa.in";
+export const API_URL = "https://app.meaculpa.in";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDU9BN7f2SwEtN2-lyinclf4CqLvAijYZ0",
