@@ -41,7 +41,7 @@ function App() {
   if (busy) return <Busy />;
   if (!auth) return <Login />;
   return (
-    <Router>
+    <Router basename="/admin">
       <Dashboard />
     </Router>
   );
