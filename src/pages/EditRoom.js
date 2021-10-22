@@ -1,3 +1,4 @@
+import { getAuth } from "@firebase/auth";
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { API_URL } from "..";
@@ -10,11 +11,19 @@ export default function EditRoom() {
   const [downForm, setForm] = useState();
 
   useEffect(() => {
-    fetch(API_URL + "/api/room/get/" + id).then(async (rsp) => {
-      rsp = await rsp.json();
-      form.current.price = rsp.data.price;
-      setForm(rsp.data);
-    });
+    async function fetchData() {
+      const token = await getAuth().currentUser.getIdToken();
+      fetch(API_URL + "/api/room/get/" + id, {
+        headers: {
+          "X-Access-Token": token,
+        },
+      }).then(async (rsp) => {
+        rsp = await rsp.json();
+        form.current.price = rsp.data.price;
+        setForm(rsp.data);
+      });
+    }
+    fetchData();
   }, [id]);
 
   const handleFormSubmit = (e) => {
