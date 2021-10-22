@@ -1,7 +1,7 @@
 import "./App.css";
 import { BrowserRouter as Router } from "react-router-dom";
 import Dashboard from "./components/Dashboard";
-import { useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "@firebase/auth";
 
 function Login() {
@@ -17,15 +17,24 @@ function Login() {
       .catch((error) => {});
   }
   return (
-    <div>
-      <button onClick={signin}>Sign in</button>
+    <div className="flex justify-center items-center h-screen">
+      <button
+        onClick={signin}
+        className="px-5 py-2 bg-blue-500 text-white rounded"
+      >
+        Sign in
+      </button>
     </div>
   );
 }
 
 function Busy() {
-  return <div>Loading...</div>;
+  return (
+    <div className="flex items-center justify-center h-screen">Loading...</div>
+  );
 }
+
+export const AppContext = createContext();
 
 function App() {
   const [auth, setAuth] = useState(false);
@@ -38,12 +47,20 @@ function App() {
       }
     });
   }, []);
+  const appContext = {
+    logout: function () {
+      getAuth().signOut();
+      setAuth(false);
+    },
+  };
   if (busy) return <Busy />;
   if (!auth) return <Login />;
   return (
-    <Router basename="/admin">
-      <Dashboard />
-    </Router>
+    <AppContext.Provider value={appContext}>
+      <Router basename="/admin">
+        <Dashboard />
+      </Router>
+    </AppContext.Provider>
   );
 }
 

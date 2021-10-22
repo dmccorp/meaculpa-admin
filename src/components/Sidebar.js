@@ -1,12 +1,12 @@
 import { NavLink } from "react-router-dom";
 import { getAuth } from "firebase/auth";
+import { useContext } from "react";
+import { AppContext } from "../App";
 
 export default function Sidebar() {
-  function logout() {
-    getAuth().signOut();
-  }
+  const { logout } = useContext(AppContext);
   return (
-    <div className="w-3/12 bg-white rounded p-3 shadow-lg">
+    <div className="w-3/12 bg-white rounded p-3 shadow-lg flex flex-col">
       <div className="flex items-center space-x-4 p-2 mb-5">
         <img
           className="h-12 rounded-full"
@@ -36,7 +36,7 @@ export default function Sidebar() {
           </span>
         </div>
       </div>
-      <ul className="space-y-2 text-sm">
+      <ul className="space-y-2 text-sm flex-1">
         <li>
           <NavLink
             to="/"
@@ -164,10 +164,12 @@ export default function Sidebar() {
             <span>Settings</span>
           </NavLink>
         </li>
-        <li>
+      </ul>
+      <div>
+        <div>
           <button
             onClick={logout}
-            className="flex items-center space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline"
+            className="flex w-full space-x-3 text-gray-700 p-2 rounded-md font-medium hover:bg-gray-200 focus:bg-gray-200 focus:shadow-outline"
           >
             <span className="text-gray-600">
               <svg
@@ -187,8 +189,8 @@ export default function Sidebar() {
             </span>
             <span>Logout</span>
           </button>
-        </li>
-      </ul>
+        </div>
+      </div>
     </div>
   );
 }
