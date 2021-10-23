@@ -31,13 +31,16 @@ export default function EditRoom() {
     const { price, startTime, endTime, product, entryFee, stepAmount } =
       form.current;
     if (price && startTime && endTime && product > 0 && entryFee) {
+      // const tzoffset = new Date().getTimezoneOffset() * 60000;
       const body = {
         roomid: id,
         startbidamt: parseFloat(price),
+        // starttime: Date.parse(startTime) + tzoffset,
+        // endtime: Date.parse(endTime) + tzoffset,
         starttime: Date.parse(startTime),
         endtime: Date.parse(endTime),
         productid: parseInt(product),
-        entryfee: parseInt(entryFee),
+        entryfee: parseInt(entryFee) * 100,
         stepamt: stepAmount,
       };
       editBidRoom(body);

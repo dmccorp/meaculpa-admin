@@ -26,11 +26,13 @@ export function createBidRoom(data) {
   });
 }
 
-export function editBidRoom(data) {
+export async function editBidRoom(data) {
+  const token = await getAuth().currentUser.getIdToken();
   return fetch(`${API_URL}/api/room/edit`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      "X-Access-Token": token,
     },
     body: JSON.stringify(data),
   }).catch((e) => {});
