@@ -1,30 +1,42 @@
+import { getAuth } from "@firebase/auth";
 import axios from "axios";
+import { API_URL } from "..";
 
-const baseURL = "http://socket.basithkunimal.com/";
-
-export function getAllProducts() {
+export async function getAllProducts() {
+  const token = await getAuth().currentUser.getIdToken();
   return axios
-    .get(`${baseURL}api/product/getall`)
+    .get(`${API_URL}/api/product/getall`, {
+      headers: {
+        "X-Access-Token": token,
+      },
+    })
     .then((res) => {
       return res.data.data;
     })
     .catch((e) => {});
 }
 
-export function getProduct(id) {
+export async function getProduct(id) {
+  const token = await getAuth().currentUser.getIdToken();
   return axios
-    .get(`${baseURL}api/product/get/${id}`)
+    .get(`${API_URL}/api/product/get/${id}`, {
+      headers: {
+        "X-Access-Token": token,
+      },
+    })
     .then((res) => {
-      return res.data.data[0];
+      return res.data.data;
     })
     .catch((e) => {});
 }
 
-export function editProduct(body) {
+export async function editProduct(body) {
+  const token = await getAuth().currentUser.getIdToken();
   return axios
-    .post(`${baseURL}api/product/edit`, body)
-    .then((res) => {
-      window.location.href = "/products";
+    .post(`${API_URL}/api/product/edit`, body, {
+      headers: {
+        "X-Access-Token": token,
+      },
     })
     .catch((e) => {});
 }

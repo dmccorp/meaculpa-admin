@@ -16,10 +16,10 @@ export default function Dashboard() {
       <div className="w-9/12 h-full">
         <div className="p-4 text-gray-500 h-full overflow-y-scroll">
           <Switch>
-            <Route path="/product/edit/:id">
+            <Route path="/products/edit/:id">
               <EditProduct />
             </Route>
-            <Route path="/product/new">
+            <Route path="/products/new">
               <CreateProduct />
             </Route>
             <Route path="/products">

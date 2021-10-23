@@ -1,5 +1,7 @@
+import { getAuth } from "@firebase/auth";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { API_URL } from "..";
 import { getAllProducts } from "../api/apiProducts";
 
 function Table() {
@@ -10,6 +12,23 @@ function Table() {
     if (products) {
       setData(products);
     }
+  }
+
+  function deleteProduct(productid) {
+    return async function () {
+      if (window.confirm("Are you sure?")) {
+        const token = await getAuth().currentUser.getIdToken();
+        fetch(API_URL + "/api/product/delete", {
+          method: "POST",
+          headers: {
+            "X-Access-Token": token,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ productid }),
+        });
+        setData(data.filter((product) => product.productid !== productid));
+      }
+    };
   }
 
   useEffect(() => {
@@ -69,12 +88,18 @@ function Table() {
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <a
-                        href={`product/edit/${item.productid}`}
+                      <Link
+                        to={`/products/edit/${item.productid}`}
                         className="text-indigo-600 hover:text-indigo-900"
                       >
                         Edit
-                      </a>
+                      </Link>
+                      <button
+                        onClick={deleteProduct(item.productid)}
+                        className="text-red-500 pl-5"
+                      >
+                        Delete
+                      </button>
                     </td>
                   </tr>
                 ))}
@@ -92,7 +117,7 @@ export default function Products() {
     <div>
       <div className="py-5">
         <Link
-          to="/product/new"
+          to="/products/new"
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         >
           New
