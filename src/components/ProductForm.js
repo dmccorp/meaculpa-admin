@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { API_URL } from "..";
 
-export default function ProductForm({ title, initial, onSubmit }) {
+export default function ProductForm({ title, product, onSubmit }) {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
@@ -14,12 +14,12 @@ export default function ProductForm({ title, initial, onSubmit }) {
   };
 
   useEffect(() => {
-    if (initial) {
-      setName(initial.name);
-      setPrice(initial.price);
-      setCategory(initial.category);
+    if (product) {
+      setName(product.name);
+      setPrice(product.price);
+      setCategory(product.category);
     }
-  }, [initial]);
+  }, [product]);
 
   useEffect(() => {
     async function fetchCategories() {

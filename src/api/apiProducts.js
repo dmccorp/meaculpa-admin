@@ -29,14 +29,3 @@ export async function getProduct(id) {
     })
     .catch((e) => {});
 }
-
-export async function editProduct(body) {
-  const token = await getAuth().currentUser.getIdToken();
-  return axios
-    .post(`${API_URL}/api/product/edit`, body, {
-      headers: {
-        "X-Access-Token": token,
-      },
-    })
-    .catch((e) => {});
-}
