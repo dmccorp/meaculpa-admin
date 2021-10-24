@@ -1,5 +1,5 @@
 import Sidebar from "./Sidebar";
-import Table from "./Table";
+import Home from "../pages/Home";
 import { Switch, Route } from "react-router-dom";
 import Rooms from "../pages/Rooms";
 import CreateRoom from "../pages/CreateRoom";
@@ -7,6 +7,7 @@ import Products from "../pages/Products";
 import EditProduct from "../pages/EditProduct";
 import CreateProduct from "../pages/CreateProducts";
 import EditRoom from "../pages/EditRoom";
+import BiddingHistory from "../pages/BiddingHistory";
 
 export default function Dashboard() {
   return (
@@ -34,9 +35,11 @@ export default function Dashboard() {
             <Route path="/rooms">
               <Rooms />
             </Route>
-            <Route path="/users">users</Route>
+            <Route path="/history">
+              <BiddingHistory/>
+            </Route>
             <Route path="/" exact>
-              <Table />
+              <Home />
             </Route>
           </Switch>
         </div>

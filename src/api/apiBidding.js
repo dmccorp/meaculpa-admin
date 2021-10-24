@@ -16,6 +16,21 @@ export async function getAllBids() {
     .catch((e) => {});
 }
 
+export async function getBidHistory() {
+  const token = await getAuth().currentUser.getIdToken();
+  return axios
+    .get(`${API_URL}/api/room/listhistory?pageno=1&limit=15
+    `, {
+      headers: {
+        "X-Access-Token": token,
+      },
+    })
+    .then((res) => {
+      return res.data.data;
+    })
+    .catch((e) => {});
+}
+
 export function createBidRoom(data) {
   return fetch(`${API_URL}/api/room/create`, {
     method: "POST",
