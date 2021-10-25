@@ -1,20 +1,20 @@
-import React, {useState, useEffect} from "react";
-import { getBidHistory } from '../api/apiBidding'
-import moment from 'moment';
+import React, { useState, useEffect } from "react";
+import { getBidHistory } from "../api/apiBidding";
+import moment from "moment";
 
 function BiddingHistory() {
   const [bids, setBids] = useState([]);
 
-  async function fetchBids(){
+  async function fetchBids() {
     let bids = await getBidHistory();
-    if(bids){
-      setBids(bids)
+    if (bids) {
+      setBids(bids);
     }
   }
 
-  useEffect( ()=>{
+  useEffect(() => {
     fetchBids();
-  }, [])
+  }, []);
 
   return (
     <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -86,16 +86,16 @@ function BiddingHistory() {
                     {bid.winner}
                   </td>
                   <td className="px-6 py-4  text-sm text-gray-500">
-                    {bid.redeem_status ? 'Redeemed' : 'Pending'}
+                    {bid.redeem_status ? "Redeemed" : "Pending"}
                   </td>
                   <td className="px-6 py-4  text-sm text-gray-500">
                     {bid.total_bid_count}
                   </td>
                   <td className="px-6 py-4 text-sm text-gray-500">
-                    {moment(bid.starttime).format('MM/DD/YYYY hh:mm a')}
+                    {moment(bid.starttime).format("MM/DD/YYYY hh:mm a")}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {moment(bid.endtime).format('MM/DD/YYYY hh:mm a')}
+                    {moment(bid.endtime).format("MM/DD/YYYY hh:mm a")}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     {bid.total_user}

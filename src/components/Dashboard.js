@@ -36,7 +36,7 @@ export default function Dashboard() {
               <Rooms />
             </Route>
             <Route path="/history">
-              <BiddingHistory/>
+              <BiddingHistory />
             </Route>
             <Route path="/" exact>
               <Home />
