@@ -1,6 +1,6 @@
 import { getAuth } from "@firebase/auth";
 import { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { API_URL } from "..";
 import { editBidRoom } from "../api/apiBidding";
 import RoomForm from "../components/RoomForm";
@@ -9,6 +9,7 @@ export default function EditRoom() {
   const form = useRef();
   const { id } = useParams();
   const [downForm, setForm] = useState();
+  const history = useHistory();
 
   useEffect(() => {
     async function fetchData() {
@@ -26,7 +27,7 @@ export default function EditRoom() {
     fetchData();
   }, [id]);
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
     const { price, startTime, endTime, product, entryFee, stepAmount } =
       form.current;
@@ -43,7 +44,8 @@ export default function EditRoom() {
         entryfee: parseInt(entryFee) * 100,
         stepamt: stepAmount,
       };
-      editBidRoom(body);
+      await editBidRoom(body);
+      history.push("/rooms");
     } else {
       alert("Please fill all fields");
     }
