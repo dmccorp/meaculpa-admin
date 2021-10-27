@@ -21,6 +21,7 @@ export default function EditRoom() {
       }).then(async (rsp) => {
         rsp = await rsp.json();
         form.current.price = rsp.data.price;
+        rsp.data.entryfee /= 100;
         setForm(rsp.data);
       });
     }
