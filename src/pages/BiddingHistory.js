@@ -89,16 +89,16 @@ function BiddingHistory() {
                     {bid.redeem_status ? "Redeemed" : "Pending"}
                   </td>
                   <td className="px-6 py-4  text-sm text-gray-500">
-                    {bid.total_bid_count}
+                    {bid.total_bids}
                   </td>
                   <td className="px-6 py-4 text-sm text-gray-500">
                     {moment(bid.starttime).format("MM/DD/YYYY hh:mm a")}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  <td className="px-6 py-4 text-sm text-gray-500">
                     {moment(bid.endtime).format("MM/DD/YYYY hh:mm a")}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {bid.total_user}
+                    {bid.total_users}
                   </td>
                 </tr>
               ))}

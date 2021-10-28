@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment";
 
 function OngoingBid({ bids = [] }) {
   return (
@@ -18,6 +19,18 @@ function OngoingBid({ bids = [] }) {
                   scope="col"
                   className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                 >
+                  Category
+                </th>
+                <th
+                  scope="col"
+                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                >
+                  Entry fee
+                </th>
+                <th
+                  scope="col"
+                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                >
                   Total users
                 </th>
                 <th
@@ -32,33 +45,28 @@ function OngoingBid({ bids = [] }) {
                 >
                   Time remaining
                 </th>
-                <th scope="col" className="relative px-6 py-3">
-                  <span className="sr-only">Change time</span>
-                </th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
               {bids.map((bid) => (
                 <tr key={bid.email}>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {bid.product}
+                  <td className="px-6 py-4 text-sm text-gray-500">
+                    {bid.productname}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {bid.users}
+                    {bid.categoryname}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {bid.latestAmount}
+                    {bid.entryfee}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {bid.remainingTime}
+                    {bid.total_users}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <a
-                      href="/edit"
-                      className="text-indigo-600 hover:text-indigo-900"
-                    >
-                      Edit
-                    </a>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {bid.latestbidamt}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {moment(bid.endtime).fromNow()}
                   </td>
                 </tr>
               ))}

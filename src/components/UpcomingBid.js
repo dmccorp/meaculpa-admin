@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment";
 
 function UpcomingBid({ bids = [] }) {
   return (
@@ -18,6 +19,12 @@ function UpcomingBid({ bids = [] }) {
                   scope="col"
                   className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                 >
+                  Entry fee
+                </th>
+                <th
+                  scope="col"
+                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                >
                   start time
                 </th>
                 <th
@@ -32,25 +39,34 @@ function UpcomingBid({ bids = [] }) {
                 >
                   minimum amount
                 </th>
-                <th scope="col" className="relative px-6 py-3">
-                  <span className="sr-only">Edit</span>
+                <th
+                  scope="col"
+                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                >
+                  step amount
                 </th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
               {bids.map((bid) => (
                 <tr key={bid.email}>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {bid.product}
+                  <td className="px-6 py-4 text-sm text-gray-500">
+                    {bid.productname}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {bid.startTime}
+                    {bid.entryfee}
+                  </td>
+                  <td className="px-6 py-4 text-sm text-gray-500">
+                    {moment(bid.starttime).format("MM/DD/YYYY hh:mm a")}
+                  </td>
+                  <td className="px-6 py-4 text-sm text-gray-500">
+                    {moment(bid.endtime).format("MM/DD/YYYY hh:mm a")}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {bid.endTime}
+                    {bid.startbidamt}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {bid.minAmount}
+                    {bid.stepamt}
                   </td>
                 </tr>
               ))}
