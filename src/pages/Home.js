@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useState } from "react/cjs/react.development";
 import OngoingBid from "../components/OngoingBid";
 import UpcomingBid from "../components/UpcomingBid";
