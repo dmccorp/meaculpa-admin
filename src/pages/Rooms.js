@@ -89,7 +89,11 @@ function Table() {
                       </div>
                     </td>
                     <td className="px-6 py-4 w-4/12">
-                      <div className="text-sm text-gray-900">
+                      <div
+                        className="text-sm text-gray-900 truncate"
+                        style={{ maxWidth: "150px" }}
+                        title={item.productname}
+                      >
                         {item.productname}
                       </div>
                     </td>
@@ -98,7 +102,7 @@ function Table() {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="text-sm text-gray-900">
-                        {item.entryfee}
+                        ₹{item.entryfee / 100}
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">

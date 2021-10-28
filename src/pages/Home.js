@@ -27,7 +27,7 @@ function Home() {
         <OngoingBid bids={upcoming} />
       </div>
       <div className="flex flex-col">
-        <h2 className="text-base mb-2">UpComing Bids</h2>
+        <h2 className="text-base mb-2">Upcoming Bids</h2>
         <UpcomingBid bids={ongoing} />
       </div>
     </>
