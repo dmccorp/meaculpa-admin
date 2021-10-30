@@ -34,11 +34,13 @@ export async function getBidHistory() {
     .catch((e) => {});
 }
 
-export function createBidRoom(data) {
+export async function createBidRoom(data) {
+  const token = await getAuth().currentUser.getIdToken();
   return fetch(`${API_URL}/api/room/create`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      "X-Access-Token": token,
     },
     body: JSON.stringify(data),
   });
