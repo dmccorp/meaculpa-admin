@@ -34,6 +34,38 @@ export async function getBidHistory() {
     .catch((e) => {});
 }
 
+export async function getUpcomingRooms() {
+  const token = await getAuth().currentUser.getIdToken();
+  return axios
+    .get(
+      `${API_URL}/api/room/list/upcoming?pageno=1&limit=15
+    `,
+      {
+        headers: {
+          "X-Access-Token": token,
+        },
+      }
+    )
+    .then((res) => {
+      return res.data.data;
+    })
+    .catch((e) => {});
+}
+
+export async function getOngoingRooms() {
+  const token = await getAuth().currentUser.getIdToken();
+  return axios
+    .get(`${API_URL}/api/room/list/ongoing?pageno=1&limit=15`, {
+      headers: {
+        "X-Access-Token": token,
+      },
+    })
+    .then((res) => {
+      return res.data.data;
+    })
+    .catch((e) => {});
+}
+
 export async function createBidRoom(data) {
   const token = await getAuth().currentUser.getIdToken();
   return fetch(`${API_URL}/api/room/create`, {
