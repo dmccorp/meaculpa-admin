@@ -27,13 +27,13 @@ function BiddingHistory() {
                   scope="col"
                   className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                 >
-                  Product name
+                  Product
                 </th>
                 <th
                   scope="col"
                   className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                 >
-                  Close
+                  Closed
                 </th>
                 <th
                   scope="col"
@@ -45,7 +45,7 @@ function BiddingHistory() {
                   scope="col"
                   className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                 >
-                  Redeem
+                  Redeemed
                 </th>
                 <th
                   scope="col"
@@ -82,7 +82,7 @@ function BiddingHistory() {
                     </div>
                   </td>
                   <td className="px-6 py-4 text-sm text-gray-500">
-                    {bid.latestbidamt}
+                    {bid.latestbidamt ? "₹ " + bid.latestbidamt : "N/A"}
                   </td>
                   <td className="px-6 py-4 text-sm text-gray-500">
                     {bid.winner}

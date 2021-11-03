@@ -14,7 +14,7 @@ export default function Sidebar() {
           alt={getAuth().currentUser.displayName}
         />
         <div>
-          <h4 className="font-semibold text-lg text-gray-700 capitalize font-poppins tracking-wide">
+          <h4 className="font-semibold text-lg text-gray-700 tracking-wide">
             {getAuth().currentUser.displayName}
           </h4>
           <span className="text-sm tracking-wide flex items-center space-x-1">
@@ -46,7 +46,7 @@ export default function Sidebar() {
           >
             <span className="text-gray-600">
               <svg
-                className="h-5"
+                className="h-6 w-6"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -147,7 +147,7 @@ export default function Sidebar() {
           >
             <span className="text-gray-600">
               <svg
-                className="h-5"
+                className="h-6 w-6"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -173,7 +173,7 @@ export default function Sidebar() {
           >
             <span className="text-gray-600">
               <svg
-                className="h-5"
+                className="h-6 w-6"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"

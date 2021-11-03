@@ -69,18 +69,26 @@ function Table() {
               <tbody className="bg-white divide-y divide-gray-200 overflow-y-scroll">
                 {data.map((item) => (
                   <tr key={item.productid}>
-                    <td className="px-6 py-4 w-10/12">
+                    <td className="px-6 py-4">
                       <div className="flex">
                         <img
-                          className="h-24 mr-4"
+                          className="h-4 w-4 mr-4 overflow-hidden"
                           alt={item.name}
                           src={item.imgurl}
                         />
-                        <div className="text-sm text-gray-900">{item.name}</div>
+                        <div
+                          className="text-sm text-gray-900 truncate"
+                          style={{ maxWidth: "450px" }}
+                          title={item.name}
+                        >
+                          {item.name}
+                        </div>
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">{item.price}</div>
+                      <div className="text-sm text-gray-900">
+                        ₹ {item.price}
+                      </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="text-sm text-gray-900">
