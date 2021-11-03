@@ -88,7 +88,7 @@ function Table() {
                         </div>
                       </div>
                     </td>
-                    <td className="px-6 py-4 w-4/12">
+                    <td className="px-6 py-4">
                       <div
                         className="text-sm text-gray-900 truncate"
                         style={{ maxWidth: "150px" }}

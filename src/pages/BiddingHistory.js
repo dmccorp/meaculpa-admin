@@ -17,8 +17,8 @@ function BiddingHistory() {
   }, []);
 
   return (
-    <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-      <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+    <div className="">
+      <div className="">
         <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
@@ -33,7 +33,7 @@ function BiddingHistory() {
                   scope="col"
                   className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                 >
-                  Closing amount
+                  Close
                 </th>
                 <th
                   scope="col"
@@ -45,13 +45,13 @@ function BiddingHistory() {
                   scope="col"
                   className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                 >
-                  Redeem status
+                  Redeem
                 </th>
                 <th
                   scope="col"
                   className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                 >
-                  Total bid count
+                  Bids
                 </th>
                 <th
                   scope="col"
@@ -69,17 +69,19 @@ function BiddingHistory() {
                   scope="col"
                   className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                 >
-                  Total users
+                  Users
                 </th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
               {bids.map((bid) => (
-                <tr key={bid.email}>
-                  <td className="px-6 py-4  text-sm text-gray-500">
-                    {bid.productname}
+                <tr key={bid.roomid}>
+                  <td className="px-6 py-4 text-sm text-gray-500">
+                    <div className="truncate" style={{ maxWidth: "150px" }}>
+                      {bid.productname}
+                    </div>
                   </td>
-                  <td className="px-6 py-4  text-sm text-gray-500">
+                  <td className="px-6 py-4 text-sm text-gray-500">
                     {bid.latestbidamt}
                   </td>
                   <td className="px-6 py-4 text-sm text-gray-500">

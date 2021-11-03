@@ -6,7 +6,7 @@ import { AppContext } from "../App";
 export default function Sidebar() {
   const { logout } = useContext(AppContext);
   return (
-    <div className="w-3/12 bg-white rounded p-3 shadow-lg flex flex-col">
+    <div className="w-2/12 bg-white rounded p-3 shadow-lg flex flex-col">
       <div className="flex items-center space-x-4 p-2 mb-5">
         <img
           className="h-12 rounded-full"
@@ -72,15 +72,15 @@ export default function Sidebar() {
             <span className="text-gray-600">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="h-6 w-6"
+                className="h-6 w-6"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
                 />
               </svg>
