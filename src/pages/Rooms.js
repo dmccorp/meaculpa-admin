@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
+import { getAuth } from "@firebase/auth";
 import { getAllBids } from "../api/apiBidding";
+import { API_URL } from "..";
 import moment from "moment";
 
 function Table() {
@@ -14,6 +16,23 @@ function Table() {
   useEffect(() => {
     getUserDetails();
   }, []);
+
+  function deleteRoom(roomid) {
+    return async function () {
+      if (window.confirm("Are you sure?")) {
+        const token = await getAuth().currentUser.getIdToken();
+        fetch(API_URL + "/api/room/delete", {
+          method: "POST",
+          headers: {
+            "X-Access-Token": token,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ roomid }),
+        });
+        setData(data.filter((room) => room.roomid !== roomid));
+      }
+    };
+  }
 
   return (
     <div className="flex flex-col">
@@ -74,6 +93,9 @@ function Table() {
                   <th scope="col" className="relative px-6 py-3">
                     <span className="sr-only">Edit</span>
                   </th>
+                  <th scope="col" className="relative px-6 py-3">
+                    <span className="sr-only">Delete</span>
+                  </th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
@@ -102,7 +124,7 @@ function Table() {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="text-sm text-gray-900">
-                        ₹{item.entryfee / 100}
+                        ₹{item.entryfee}
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
@@ -115,7 +137,7 @@ function Table() {
                         Active
                       </span> */}
                       <div className="text-sm text-gray-900">
-                        {moment(item.starttime).format("MM/DD/YYYY")}
+                        {moment(item.starttime).format("DD/MM/YYYY")}
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -131,6 +153,14 @@ function Table() {
                       >
                         Edit
                       </Link>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                      <button
+                        onClick={deleteRoom(item.roomid)}
+                        className="text-red-500 pl-5"
+                      >
+                        Delete
+                      </button>
                     </td>
                   </tr>
                 ))}

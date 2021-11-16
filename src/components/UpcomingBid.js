@@ -54,13 +54,13 @@ function UpcomingBid({ bids = [] }) {
                     {bid.productname}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {bid.entryfee}
+                    ₹{bid.entryfee}
                   </td>
                   <td className="px-6 py-4 text-sm text-gray-500">
-                    {moment(bid.starttime).format("MM/DD/YYYY hh:mm a")}
+                    {moment(bid.starttime).format("DD/MM/YYYY hh:mm a")}
                   </td>
                   <td className="px-6 py-4 text-sm text-gray-500">
-                    {moment(bid.endtime).format("MM/DD/YYYY hh:mm a")}
+                    {moment(bid.endtime).format("DD/MM/YYYY hh:mm a")}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     {bid.startbidamt}

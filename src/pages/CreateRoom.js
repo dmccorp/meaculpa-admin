@@ -20,11 +20,17 @@ export default function CreateRoom() {
         entryfee: parseInt(entryFee),
         stepamt: stepAmount,
       };
-      createBidRoom(body).then((rsp) => {
-        if (rsp.ok) history.push("/rooms");
+      createBidRoom(body).then((res) => {
+        if (res.ok) history.push("/rooms");
+        res
+          .text()
+          .then((txt) => {
+            return JSON.parse(txt).msg;
+          })
+          .then((txt) => {
+            alert(txt);
+          });
       });
-    } else {
-      alert("Please fill all fields");
     }
   };
 

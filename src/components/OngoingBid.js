@@ -57,7 +57,7 @@ function OngoingBid({ bids = [] }) {
                     {bid.categoryname}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {bid.entryfee}
+                    ₹{bid.entryfee}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     {bid.total_users}
