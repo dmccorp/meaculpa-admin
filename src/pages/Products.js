@@ -25,8 +25,27 @@ function Table() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ productid }),
-        });
-        setData(data.filter((product) => product.productid !== productid));
+        })
+          .then((res) => {
+            if (res.status != 200) {
+              res
+                .text()
+                .then((txt) => {
+                  return JSON.parse(txt).msg;
+                })
+                .then((txt) => {
+                  alert(txt);
+                });
+            } else {
+              setData(
+                data.filter((product) => product.productid !== productid)
+              );
+            }
+          })
+          .catch((err) => {
+            console.log("err, err", err);
+            alert(err);
+          });
       }
     };
   }
