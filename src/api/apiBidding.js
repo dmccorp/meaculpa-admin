@@ -1,26 +1,34 @@
 import { getAuth } from "@firebase/auth";
 import axios from "axios";
 import { API_URL } from "..";
+import {
+  itemCountMedium,
+  itemCountSmall,
+  itemCountLarge,
+} from "../common/constant";
 
-export async function getAllBids() {
+export async function getAllBids(activePage) {
   const token = await getAuth().currentUser.getIdToken();
   return axios
-    .get(`${API_URL}/api/room/getall`, {
-      headers: {
-        "X-Access-Token": token,
-      },
-    })
+    .get(
+      `${API_URL}/api/room/getall?pageno=${activePage}&limit=${itemCountMedium}`,
+      {
+        headers: {
+          "X-Access-Token": token,
+        },
+      }
+    )
     .then((res) => {
       return res.data.data;
     })
     .catch((e) => {});
 }
 
-export async function getBidHistory() {
+export async function getBidHistory(activePage = 1) {
   const token = await getAuth().currentUser.getIdToken();
   return axios
     .get(
-      `${API_URL}/api/room/listhistory?pageno=1&limit=15
+      `${API_URL}/api/room/listhistory?pageno=${activePage}&limit=${itemCountLarge}
     `,
       {
         headers: {
@@ -34,11 +42,11 @@ export async function getBidHistory() {
     .catch((e) => {});
 }
 
-export async function getUpcomingRooms() {
+export async function getUpcomingRooms(activePage) {
   const token = await getAuth().currentUser.getIdToken();
   return axios
     .get(
-      `${API_URL}/api/room/list/upcoming?pageno=1&limit=15
+      `${API_URL}/api/room/list/upcoming?pageno=${activePage}&limit=${itemCountSmall}
     `,
       {
         headers: {
@@ -52,14 +60,17 @@ export async function getUpcomingRooms() {
     .catch((e) => {});
 }
 
-export async function getOngoingRooms() {
+export async function getOngoingRooms(activePage) {
   const token = await getAuth().currentUser.getIdToken();
   return axios
-    .get(`${API_URL}/api/room/list/ongoing?pageno=1&limit=15`, {
-      headers: {
-        "X-Access-Token": token,
-      },
-    })
+    .get(
+      `${API_URL}/api/room/list/ongoing?pageno=${activePage}&limit=${itemCountSmall}`,
+      {
+        headers: {
+          "X-Access-Token": token,
+        },
+      }
+    )
     .then((res) => {
       return res.data.data;
     })

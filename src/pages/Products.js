@@ -1,14 +1,22 @@
 import { getAuth } from "@firebase/auth";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import Pagination from "react-js-pagination";
+import { itemCountMedium } from "../common/constant";
 import { API_URL } from "..";
 import { getAllProducts } from "../api/apiProducts";
 
 function Table() {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([]),
+    [activePage, setActivePage] = useState(1);
 
-  async function getProducts() {
-    let products = await getAllProducts();
+  const handlePageChange = (page) => {
+    setActivePage(page);
+    getProducts(page);
+  };
+
+  async function getProducts(activePage) {
+    let products = await getAllProducts(activePage);
     if (products) {
       setData(products);
     }
@@ -51,7 +59,7 @@ function Table() {
   }
 
   useEffect(() => {
-    getProducts();
+    getProducts(activePage);
   }, []);
 
   return (
@@ -86,53 +94,63 @@ function Table() {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200 overflow-y-scroll">
-                {data.map((item) => (
-                  <tr key={item.productid}>
-                    <td className="px-6 py-4">
-                      <div className="flex">
-                        <img
-                          className="h-4 w-4 mr-4 overflow-hidden"
-                          alt={item.name}
-                          src={item.imgurl}
-                        />
-                        <div
-                          className="text-sm text-gray-900 truncate"
-                          style={{ maxWidth: "450px" }}
-                          title={item.name}
-                        >
-                          {item.name}
+                {data.products &&
+                  data.products.map((item) => (
+                    <tr key={item.productid}>
+                      <td className="px-6 py-4">
+                        <div className="flex">
+                          <img
+                            className="h-4 w-4 mr-4 overflow-hidden"
+                            alt={item.name}
+                            src={item.imgurl}
+                          />
+                          <div
+                            className="text-sm text-gray-900 truncate"
+                            style={{ maxWidth: "450px" }}
+                            title={item.name}
+                          >
+                            {item.name}
+                          </div>
                         </div>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">
-                        ₹ {item.price}
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">
-                        {item.categoryname}
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <Link
-                        to={`/products/edit/${item.productid}`}
-                        className="text-indigo-600 hover:text-indigo-900"
-                      >
-                        Edit
-                      </Link>
-                      <button
-                        onClick={deleteProduct(item.productid)}
-                        className="text-red-500 pl-5"
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                ))}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm text-gray-900">
+                          ₹ {item.price}
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm text-gray-900">
+                          {item.categoryname}
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                        <Link
+                          to={`/products/edit/${item.productid}`}
+                          className="text-indigo-600 hover:text-indigo-900"
+                        >
+                          Edit
+                        </Link>
+                        <button
+                          onClick={deleteProduct(item.productid)}
+                          className="text-red-500 pl-5"
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             </table>
           </div>
+          <Pagination
+            activePage={activePage}
+            itemsCountPerPage={itemCountMedium}
+            totalItemsCount={data.total_count}
+            pageRangeDisplayed={5}
+            onChange={handlePageChange}
+            itemClass="page-item"
+            linkClass="page-link"
+          />
         </div>
       </div>
     </div>

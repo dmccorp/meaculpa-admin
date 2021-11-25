@@ -13,8 +13,8 @@ export default function RoomForm({ form, update }) {
 
   async function getProducts() {
     let data = await getAllProducts();
-    if (data) {
-      setProducts(data);
+    if (data && data.products) {
+      setProducts(data.products);
     }
   }
 
@@ -52,13 +52,16 @@ export default function RoomForm({ form, update }) {
   }, []);
 
   const setDropdown = () => {
-    return products.map((item) => {
-      return (
-        <option key={item.productid} value={item.productid}>
-          {item.name}
-        </option>
-      );
-    });
+    if (products) {
+      return products.map((item) => {
+        return (
+          <option key={item.productid} value={item.productid}>
+            {item.name}
+          </option>
+        );
+      });
+    }
+    return null;
   };
 
   return (

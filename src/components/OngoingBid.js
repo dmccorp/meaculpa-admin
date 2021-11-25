@@ -1,7 +1,9 @@
 import React from "react";
 import moment from "moment";
+import Pagination from "react-js-pagination";
+import { itemCountSmall } from "../common/constant";
 
-function OngoingBid({ bids = [] }) {
+function OngoingBid({ bids = [], activePage = 1, handleOngoingPageChange }) {
   return (
     <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
       <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -48,31 +50,41 @@ function OngoingBid({ bids = [] }) {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {bids.map((bid) => (
-                <tr key={bid.email}>
-                  <td className="px-6 py-4 text-sm text-gray-500">
-                    {bid.productname}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {bid.categoryname}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    ₹{bid.entryfee}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {bid.total_users}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {bid.latestbidamt}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {moment(bid.endtime).fromNow()}
-                  </td>
-                </tr>
-              ))}
+              {bids.rooms &&
+                bids.rooms.map((bid) => (
+                  <tr key={bid.email}>
+                    <td className="px-6 py-4 text-sm text-gray-500">
+                      {bid.productname}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      {bid.categoryname}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      ₹{bid.entryfee}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      {bid.total_users}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      {bid.latestbidamt}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      {moment(bid.endtime).fromNow()}
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </div>
+        <Pagination
+          activePage={activePage}
+          itemsCountPerPage={itemCountSmall}
+          totalItemsCount={bids.total_count}
+          pageRangeDisplayed={5}
+          onChange={handleOngoingPageChange}
+          itemClass="page-item"
+          linkClass="page-link"
+        />
       </div>
     </div>
   );
