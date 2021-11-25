@@ -17,13 +17,13 @@ function Table() {
     getUserDetails(page);
   };
 
-  async function getUserDetails(currentPage) {
+  async function getUserDetails(currentPage = 1) {
     const res = await getAllBids(currentPage);
     if (res) setData(res);
   }
 
   useEffect(() => {
-    getUserDetails(activePage);
+    getUserDetails();
   }, []);
 
   function deleteRoom(roomid) {

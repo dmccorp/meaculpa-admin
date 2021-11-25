@@ -15,8 +15,8 @@ function Table() {
     getProducts(page);
   };
 
-  async function getProducts(activePage) {
-    let products = await getAllProducts(activePage);
+  async function getProducts(page = 1) {
+    let products = await getAllProducts(page);
     if (products) {
       setData(products);
     }
@@ -35,7 +35,7 @@ function Table() {
           body: JSON.stringify({ productid }),
         })
           .then((res) => {
-            if (res.status != 200) {
+            if (res.status !== 200) {
               res
                 .text()
                 .then((txt) => {
@@ -59,7 +59,7 @@ function Table() {
   }
 
   useEffect(() => {
-    getProducts(activePage);
+    getProducts();
   }, []);
 
   return (

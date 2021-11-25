@@ -17,20 +17,20 @@ function Home() {
       getUpcomingRoomDetails(page);
     };
 
-  async function getOngoingRoomDetails(page) {
+  async function getOngoingRoomDetails(page = 1) {
     const ongoingBidData = await getOngoingRooms(page);
 
     setUpcoming(ongoingBidData);
   }
-  async function getUpcomingRoomDetails(page) {
+  async function getUpcomingRoomDetails(page = 1) {
     const upcomingBidData = await getUpcomingRooms(page);
 
     setOngoing(upcomingBidData);
   }
 
   useEffect(() => {
-    getOngoingRoomDetails(activeOngoingPage);
-    getUpcomingRoomDetails(activeUpcomingPage);
+    getOngoingRoomDetails();
+    getUpcomingRoomDetails();
   }, []);
 
   return (

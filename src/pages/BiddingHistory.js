@@ -12,7 +12,7 @@ function BiddingHistory() {
       fetchBids(page);
     };
 
-  async function fetchBids(page) {
+  async function fetchBids(page = 1) {
     let bids = await getBidHistory(page);
     if (bids) {
       setBids(bids);
@@ -20,7 +20,7 @@ function BiddingHistory() {
   }
 
   useEffect(() => {
-    fetchBids(activePage);
+    fetchBids();
   }, []);
 
   return (
