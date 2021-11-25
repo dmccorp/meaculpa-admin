@@ -3,11 +3,12 @@ import axios from "axios";
 import { API_URL } from "..";
 import { itemCountMedium } from "../common/constant";
 
-export async function getAllProducts(activePage) {
-  const token = await getAuth().currentUser.getIdToken();
+export async function getAllProducts(activePage = 1, totalProducts) {
+  const token = await getAuth().currentUser.getIdToken(),
+    totalProductCount = totalProducts ? totalProducts : itemCountMedium;
   return axios
     .get(
-      `${API_URL}/api/product/getall?pageno=${activePage}&limit=${itemCountMedium}`,
+      `${API_URL}/api/product/getall?pageno=${activePage}&limit=${totalProductCount}`,
       {
         headers: {
           "X-Access-Token": token,

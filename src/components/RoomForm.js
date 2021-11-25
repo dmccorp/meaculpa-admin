@@ -12,7 +12,7 @@ export default function RoomForm({ form, update }) {
   const [stepAmount, setStepAmount] = useState(1);
 
   async function getProducts() {
-    let data = await getAllProducts();
+    let data = await getAllProducts(1, 10000);
     if (data && data.products) {
       setProducts(data.products);
     }
