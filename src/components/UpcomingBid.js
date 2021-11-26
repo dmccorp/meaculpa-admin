@@ -57,7 +57,7 @@ function UpcomingBid({ bids = {}, activePage, handleUpcomingPageChange }) {
                       {bid.productname}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      ₹{bid.entryfee}
+                      ₹{bid.entryfee / 100}
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-500">
                       {moment(bid.starttime).format("DD/MM/YYYY hh:mm a")}

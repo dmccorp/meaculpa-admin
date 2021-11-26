@@ -60,7 +60,7 @@ function OngoingBid({ bids = [], activePage = 1, handleOngoingPageChange }) {
                       {bid.categoryname}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      ₹{bid.entryfee}
+                      ₹{bid.entryfee / 100}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                       {bid.total_users}

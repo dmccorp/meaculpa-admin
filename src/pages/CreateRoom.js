@@ -17,7 +17,7 @@ export default function CreateRoom() {
         starttime: Date.parse(startTime),
         endtime: Date.parse(endTime),
         productid: parseInt(product),
-        entryfee: parseInt(entryFee),
+        entryfee: parseInt(entryFee) * 100,
         stepamt: stepAmount,
       };
       createBidRoom(body).then((res) => {

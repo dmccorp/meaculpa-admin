@@ -132,7 +132,7 @@ function Table() {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-sm text-gray-900">
-                      ₹{item.entryfee}
+                      ₹{item.entryfee / 100}
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
