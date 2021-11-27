@@ -26,21 +26,19 @@ function Table() {
     getUserDetails();
   }, []);
 
-  function deleteRoom(roomid) {
-    return async function () {
-      if (window.confirm("Are you sure?")) {
-        const token = await getAuth().currentUser.getIdToken();
-        fetch(API_URL + "/api/room/delete", {
-          method: "POST",
-          headers: {
-            "X-Access-Token": token,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ roomid }),
-        });
-        setData(data.filter((room) => room.roomid !== roomid));
-      }
-    };
+  async function deleteRoom(roomid) {
+    if (window.confirm("Are you sure?")) {
+      const token = await getAuth().currentUser.getIdToken();
+      fetch(API_URL + "/api/room/delete", {
+        method: "POST",
+        headers: {
+          "X-Access-Token": token,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ roomid }),
+      });
+      setData(data.filter((room) => room.roomid !== roomid));
+    }
   }
 
   return (
@@ -161,7 +159,7 @@ function Table() {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                     <button
-                      onClick={deleteRoom(item.roomid)}
+                      onClick={() => deleteRoom(item.roomid)}
                       className="text-red-500 pl-5"
                     >
                       Delete

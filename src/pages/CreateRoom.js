@@ -9,8 +9,15 @@ export default function CreateRoom() {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    const { price, startTime, endTime, product, entryFee, stepAmount } =
-      form.current;
+    const {
+      price,
+      startTime,
+      endTime,
+      product,
+      entryFee,
+      stepAmount,
+      reverse,
+    } = form.current;
     if (price && startTime && endTime && product > 0 && entryFee) {
       const body = {
         startbidamt: parseFloat(price),
@@ -19,6 +26,7 @@ export default function CreateRoom() {
         productid: parseInt(product),
         entryfee: parseInt(entryFee) * 100,
         stepamt: stepAmount,
+        roomtype: reverse,
       };
       createBidRoom(body).then((res) => {
         if (res.ok) history.push("/rooms");

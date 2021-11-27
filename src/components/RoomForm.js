@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getAllProducts } from "../api/apiProducts";
+import Switch from "./Switch";
 
 export default function RoomForm({ form, update }) {
   const [price, setPrice] = useState(1);
@@ -10,6 +11,7 @@ export default function RoomForm({ form, update }) {
   const [product, setProduct] = useState(0);
   const [entryFee, setEntryFee] = useState(50);
   const [stepAmount, setStepAmount] = useState(1);
+  const [reverse, setReverse] = useState(false);
 
   async function getProducts() {
     let data = await getAllProducts(1, 10000);
@@ -26,8 +28,9 @@ export default function RoomForm({ form, update }) {
       product,
       entryFee,
       stepAmount,
+      reverse,
     };
-  }, [form, price, startTime, endTime, product, entryFee, stepAmount]);
+  }, [form, price, startTime, endTime, product, entryFee, stepAmount, reverse]);
 
   useEffect(() => {
     if (update) {
@@ -44,6 +47,7 @@ export default function RoomForm({ form, update }) {
         .slice(0, -8);
       setEndTime(endtime);
       setStepAmount(update.stepamt);
+      setReverse(update.roomtype);
     }
   }, [update]);
 
@@ -68,6 +72,16 @@ export default function RoomForm({ form, update }) {
     <div>
       <div className="px-4 py-5 space-y-6 sm:p-6">
         <div className="grid grid-cols-6 gap-6">
+          <div className="col-span-6">
+            <Switch
+              name="roomtype"
+              checked={reverse}
+              onChange={() => setReverse(!reverse)}
+            />{" "}
+            <label htmlFor="toggle" className="select-none">
+              Reverse
+            </label>
+          </div>
           <div className="col-span-6 sm:col-span-2">
             <label
               htmlFor="price"

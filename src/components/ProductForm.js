@@ -8,6 +8,7 @@ export default function ProductForm({ title, product, onSubmit }) {
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
   const [categories, setCategories] = useState([]);
+  const [description, setDescription] = useState("");
 
   const onHandleFileChange = (e) => {
     console.log(e.target.files[0]);
@@ -17,7 +18,8 @@ export default function ProductForm({ title, product, onSubmit }) {
     if (product) {
       setName(product.name);
       setPrice(product.price);
-      setCategory(product.category);
+      setCategory(product.categoryid);
+      setDescription(product.description);
     }
   }, [product]);
 
@@ -117,6 +119,23 @@ export default function ProductForm({ title, product, onSubmit }) {
                 className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md border p-1"
                 required
               />
+            </div>
+            <div className="col-span-4"></div>
+            <div className="col-span-3">
+              <label
+                htmlFor="desc"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Description
+              </label>
+              <textarea
+                id="desc"
+                name="description"
+                className="mt-1 border rounded-md focus:ring-indigo-500 border-gray-300 w-full"
+                rows="5"
+                value={description}
+                onChange={(value) => setDescription(value)}
+              ></textarea>
             </div>
           </div>
         </div>

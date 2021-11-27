@@ -30,8 +30,15 @@ export default function EditRoom() {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    const { price, startTime, endTime, product, entryFee, stepAmount } =
-      form.current;
+    const {
+      price,
+      startTime,
+      endTime,
+      product,
+      entryFee,
+      stepAmount,
+      reverse,
+    } = form.current;
     if (price && startTime && endTime && product > 0 && entryFee) {
       // const tzoffset = new Date().getTimezoneOffset() * 60000;
       const body = {
@@ -44,6 +51,7 @@ export default function EditRoom() {
         productid: parseInt(product),
         entryfee: parseInt(entryFee) * 100,
         stepamt: stepAmount,
+        roomtype: reverse,
       };
       await editBidRoom(body);
       history.push("/rooms");
