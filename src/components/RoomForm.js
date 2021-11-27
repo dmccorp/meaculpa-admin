@@ -21,6 +21,10 @@ export default function RoomForm({ form, update }) {
   }
 
   useEffect(() => {
+    if (reverse) setStepAmount(1);
+  }, [reverse]);
+
+  useEffect(() => {
     form.current = {
       price,
       startTime,
@@ -178,8 +182,12 @@ export default function RoomForm({ form, update }) {
               type="number"
               name="stepamount"
               id="stepamount"
+              disabled={reverse}
               value={stepAmount}
-              className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+              className={
+                "mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" +
+                (reverse ? " bg-gray-100" : "")
+              }
             />
           </div>
         </div>
