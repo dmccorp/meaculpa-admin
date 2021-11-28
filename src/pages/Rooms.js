@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { getAuth } from "@firebase/auth";
 import Pagination from "react-js-pagination";
 import { getAllBids } from "../api/apiBidding";
@@ -8,7 +8,8 @@ import moment from "moment";
 import "../common/styles.css";
 import { itemCountMedium } from "../common/constant";
 
-function Table() {
+function Table({ timeFrame }) {
+  const allData = useRef();
   const [data, setData] = useState([]),
     [activePage, setActivePage] = useState(1);
 
@@ -19,12 +20,53 @@ function Table() {
 
   async function getUserDetails(currentPage = 1) {
     const res = await getAllBids(currentPage);
-    if (res) setData(res);
+    if (res) {
+      setData(res);
+      allData.current = res;
+    }
   }
 
   useEffect(() => {
     getUserDetails();
   }, []);
+
+  useEffect(() => {
+    if (!allData.current) return;
+    if (timeFrame === "today") {
+      const filtered = allData.current.rooms.filter(
+        (room) =>
+          room.starttime > moment().startOf("day").valueOf() &&
+          room.endtime < moment().endOf("day").valueOf()
+      );
+      setData({
+        rooms: filtered,
+        total_count: filtered.length,
+      });
+    } else if (timeFrame === "tommorrow") {
+      const filtered = allData.current.rooms.filter(
+        (room) =>
+          room.starttime > moment().endOf("day").valueOf() &&
+          room.endtime < moment().add(1, "day").endOf("day").valueOf()
+      );
+      setData({
+        rooms: filtered,
+        total_count: filtered.length,
+      });
+    } else if (timeFrame === "yesterday") {
+      const filtered = allData.current.rooms.filter(
+        (room) =>
+          room.starttime >
+            moment().subtract(1, "day").startOf("day").valueOf() &&
+          room.endtime < moment().startOf("day").valueOf()
+      );
+      setData({
+        rooms: filtered,
+        total_count: filtered.length,
+      });
+    } else {
+      setData(allData.current);
+    }
+  }, [timeFrame]);
 
   async function deleteRoom(roomid) {
     if (window.confirm("Are you sure?")) {
@@ -183,18 +225,53 @@ function Table() {
   );
 }
 
+const tabs = [
+  {
+    key: "all",
+    label: "All",
+  },
+  {
+    key: "yesterday",
+    label: "Yesterday",
+  },
+  {
+    key: "today",
+    label: "Today's",
+  },
+  {
+    key: "tommorrow",
+    label: "Tommorrow's",
+  },
+];
+
 export default function Biddings() {
+  const [currentTab, setCurrentTab] = useState("all");
+  function changeTab(tab) {
+    setCurrentTab(tab);
+  }
   return (
     <div>
-      <div className="py-5">
+      <div className="pt-3 pb-5 flex justify-between">
         <Link
           to="/rooms/new"
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         >
           New
         </Link>
+        <div className="flex gap-2">
+          {tabs.map((tab) => (
+            <button
+              className={`bg-${
+                tab.key === currentTab ? "blue" : "gray"
+              }-200 rounded px-4 py-2`}
+              onClick={() => changeTab(tab.key)}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
       </div>
-      <Table />
+      <Table timeFrame={currentTab} />
     </div>
   );
 }
