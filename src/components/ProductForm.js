@@ -130,7 +130,7 @@ export default function ProductForm({ title, product, onSubmit }) {
               </label>
               <textarea
                 id="desc"
-                name="description"
+                name="productinfo"
                 className="mt-1 border rounded-md focus:ring-indigo-500 border-gray-300 w-full"
                 rows="5"
                 value={description}
