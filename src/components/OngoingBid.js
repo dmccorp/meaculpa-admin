@@ -1,7 +1,51 @@
-import React from "react";
-import moment from "moment";
+import React, { useEffect, useRef } from "react";
 import Pagination from "react-js-pagination";
+import { io } from "socket.io-client";
+import { API_URL } from "..";
+import { timeLeft } from "../common";
 import { itemCountSmall } from "../common/constant";
+
+function Row({ room }) {
+  const timeLeftColumn = useRef();
+  const latestBidColumn = useRef();
+  useEffect(() => {
+    setInterval(() => {
+      timeLeftColumn.current.innerText = timeLeft(room.endtime);
+    }, 1000);
+    timeLeftColumn.current.innerText = timeLeft(room.endtime);
+    const socket = io.connect(API_URL);
+    socket.on(`bid/${room.roomid}`, (msg) => {
+      const bid = JSON.parse(msg);
+      latestBidColumn.current.innerText = bid.bidamt;
+    });
+    latestBidColumn.current.innerText = room.latestbidamt;
+    return () => {
+      socket.disconnect();
+    };
+  }, [room]);
+  return (
+    <tr>
+      <td className="px-6 py-4 text-sm text-gray-500">{room.productname}</td>
+      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+        {room.categoryname}
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+        ₹{room.entryfee / 100}
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+        {room.total_users}
+      </td>
+      <td
+        className="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+        ref={latestBidColumn}
+      ></td>
+      <td
+        className="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
+        ref={timeLeftColumn}
+      ></td>
+    </tr>
+  );
+}
 
 function OngoingBid({ bids = [], activePage = 1, handleOngoingPageChange }) {
   return (
@@ -51,28 +95,7 @@ function OngoingBid({ bids = [], activePage = 1, handleOngoingPageChange }) {
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
               {bids.rooms &&
-                bids.rooms.map((bid) => (
-                  <tr key={bid.email}>
-                    <td className="px-6 py-4 text-sm text-gray-500">
-                      {bid.productname}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {bid.categoryname}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      ₹{bid.entryfee / 100}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {bid.total_users}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {bid.latestbidamt}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {moment(bid.endtime).fromNow()}
-                    </td>
-                  </tr>
-                ))}
+                bids.rooms.map((room) => <Row room={room} key={room.roomid} />)}
             </tbody>
           </table>
         </div>
