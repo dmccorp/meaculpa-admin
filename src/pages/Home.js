@@ -4,14 +4,9 @@ import UpcomingBid from "../components/UpcomingBid";
 import { getOngoingRooms, getUpcomingRooms } from "../api/apiBidding";
 
 function Home() {
-  const [upcoming, setUpcoming] = useState([]),
+  const [upcoming, setUpcoming] = useState({ rooms: [] }),
     [activeUpcomingPage, setUpcomingPage] = useState(1),
-    [activeOngoingPage, setOngoingPage] = useState(1),
     [ongoing, setOngoing] = useState([]),
-    handleOngoingPageChange = (page) => {
-      setOngoingPage(page);
-      getOngoingRoomDetails(page);
-    },
     handleUpcomingPageChange = (page) => {
       setUpcomingPage(page);
       getUpcomingRoomDetails(page);
@@ -36,12 +31,7 @@ function Home() {
   return (
     <>
       <div className="flex flex-col mb-8">
-        <h2 className="text-base mb-2">Ongoing Bids</h2>
-        <OngoingBid
-          bids={upcoming}
-          activePage={activeOngoingPage}
-          handleOngoingPageChange={handleOngoingPageChange}
-        />
+        <OngoingBid room={upcoming.rooms[0]} />
       </div>
       <div className="flex flex-col">
         <h2 className="text-base mb-2">Upcoming Bids</h2>
