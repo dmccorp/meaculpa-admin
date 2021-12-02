@@ -1,6 +1,7 @@
 import { getAuth } from "@firebase/auth";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import MDEditor from "@uiw/react-md-editor";
 import { API_URL } from "..";
 
 export default function ProductForm({ title, product, onSubmit }) {
@@ -8,7 +9,7 @@ export default function ProductForm({ title, product, onSubmit }) {
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
   const [categories, setCategories] = useState([]);
-  const [description, setDescription] = useState("");
+  const [description, setDescription] = useState();
 
   const onHandleFileChange = (e) => {
     console.log(e.target.files[0]);
@@ -99,7 +100,9 @@ export default function ProductForm({ title, product, onSubmit }) {
               >
                 <option>Select category</option>
                 {categories.map((category) => (
-                  <option value={category.categoryid}>{category.name}</option>
+                  <option value={category.categoryid} key={category.categoryid}>
+                    {category.name}
+                  </option>
                 ))}
               </select>
             </div>
@@ -128,14 +131,11 @@ export default function ProductForm({ title, product, onSubmit }) {
               >
                 Description
               </label>
-              <textarea
-                id="desc"
-                name="productinfo"
-                className="mt-1 border rounded-md focus:ring-indigo-500 border-gray-300 w-full"
-                rows="5"
+              <MDEditor
                 value={description}
-                onChange={(value) => setDescription(value)}
-              ></textarea>
+                onChange={(description) => setDescription(description)}
+              />
+              <input type="hidden" name="description" value={description} />
             </div>
           </div>
         </div>
