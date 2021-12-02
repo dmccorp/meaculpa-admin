@@ -120,7 +120,7 @@ export default function ProductForm({ title, product, onSubmit }) {
                 onChange={onHandleFileChange}
                 accept="image/png, image/jpeg"
                 className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md border p-1"
-                required
+                required={product === undefined}
               />
             </div>
             <div className="col-span-4"></div>
@@ -135,7 +135,7 @@ export default function ProductForm({ title, product, onSubmit }) {
                 value={description}
                 onChange={(description) => setDescription(description)}
               />
-              <input type="hidden" name="description" value={description} />
+              <input type="hidden" name="productinfo" value={description} />
             </div>
           </div>
         </div>
