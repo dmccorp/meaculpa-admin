@@ -59,6 +59,14 @@ export default function RoomForm({ form, update }) {
     getProducts();
   }, []);
 
+  const changeProduct = ({ target: { value } }) => {
+    setProduct(value);
+    if (reverse) {
+      const product = products.find((product) => product.productid === value);
+      setPrice(product.price);
+    }
+  };
+
   const setDropdown = () => {
     if (products) {
       return products.map((item) => {
@@ -85,6 +93,24 @@ export default function RoomForm({ form, update }) {
             <label htmlFor="toggle" className="select-none">
               Reverse
             </label>
+          </div>
+          <div className="col-span-6 sm:col-span-2">
+            <label
+              htmlFor="products"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Product
+            </label>
+            <select
+              className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+              name="product"
+              id="products"
+              value={product}
+              onChange={changeProduct}
+            >
+              <option value="0">Select</option>
+              {products && setDropdown()}
+            </select>
           </div>
           <div className="col-span-6 sm:col-span-2">
             <label
@@ -119,24 +145,6 @@ export default function RoomForm({ form, update }) {
               autoComplete="given-name"
               className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
             />
-          </div>
-          <div className="col-span-6 sm:col-span-2">
-            <label
-              htmlFor="products"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Product
-            </label>
-            <select
-              className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-              name="product"
-              id="products"
-              value={product}
-              onChange={(e) => setProduct(e.target.value)}
-            >
-              <option value="0">Select</option>
-              {products && setDropdown()}
-            </select>
           </div>
           <div className="col-span-6 sm:col-span-2">
             <label
