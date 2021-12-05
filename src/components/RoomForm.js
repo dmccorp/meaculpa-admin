@@ -62,7 +62,9 @@ export default function RoomForm({ form, update }) {
   const changeProduct = ({ target: { value } }) => {
     setProduct(value);
     if (reverse) {
-      const product = products.find((product) => product.productid === value);
+      const product = products.find(
+        (product) => product.productid === parseInt(value, 10)
+      );
       setPrice(product.price);
     }
   };
