@@ -12,11 +12,13 @@ export default function RoomForm({ form, update }) {
   const [entryFee, setEntryFee] = useState(50);
   const [stepAmount, setStepAmount] = useState(1);
   const [reverse, setReverse] = useState(false);
+  const [busy, setBusy] = useState(true);
 
   async function getProducts() {
     let data = await getAllProducts(1, 10000);
     if (data && data.products) {
       setProducts(data.products);
+      setBusy(false);
     }
   }
 
@@ -212,6 +214,7 @@ export default function RoomForm({ form, update }) {
         <button
           type="submit"
           className="inline-flex justify-center ml-4 py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          disabled={busy}
         >
           Save
         </button>
