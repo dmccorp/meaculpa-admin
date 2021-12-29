@@ -76,7 +76,7 @@ export default function RoomForm({ form, update }) {
       return products.map((item) => {
         return (
           <option key={item.productid} value={item.productid}>
-            {item.name}
+            {item.name} - ₹{item.price}
           </option>
         );
       });
