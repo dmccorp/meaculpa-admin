@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import { getAuth } from "@firebase/auth";
 import moment from "moment";
 import Pagination from "react-js-pagination";
-import { useHistory } from "react-router";
 import { API_URL } from "..";
-import { getBidHistory, redeemProduct } from "../api/apiBidding";
+import { getBidHistory } from "../api/apiBidding";
 import { itemCountLarge } from "../common/constant";
 
 function BiddingHistory() {
@@ -14,7 +13,6 @@ function BiddingHistory() {
       setActivePage(page);
       fetchBids(page);
     };
-  const history = useHistory();
 
   async function fetchBids(page = 1) {
     let bids = await getBidHistory(page);
