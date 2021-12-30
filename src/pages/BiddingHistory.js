@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { getAuth } from "@firebase/auth";
 import moment from "moment";
 import Pagination from "react-js-pagination";
-import { getBidHistory } from "../api/apiBidding";
+import { useHistory } from "react-router";
+import { API_URL } from "..";
+import { getBidHistory, redeemProduct } from "../api/apiBidding";
 import { itemCountLarge } from "../common/constant";
 
 function BiddingHistory() {
@@ -11,12 +14,31 @@ function BiddingHistory() {
       setActivePage(page);
       fetchBids(page);
     };
+  const history = useHistory();
 
   async function fetchBids(page = 1) {
     let bids = await getBidHistory(page);
     if (bids) {
       setBids(bids);
     }
+  }
+
+  async function redeemItem(id) {
+    const token = await getAuth().currentUser.getIdToken();
+    const formData = {
+      roomid: id,
+      redeemstatus: 1,
+    };
+    await fetch(API_URL + "/api/room/updateredeemstatus", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Access-Token": token,
+      },
+      body: JSON.stringify(formData),
+    }).then(() => {
+      window.location.reload();
+    });
   }
 
   useEffect(() => {
@@ -52,6 +74,12 @@ function BiddingHistory() {
                   scope="col"
                   className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                 >
+                  Mobile
+                </th>
+                <th
+                  scope="col"
+                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                >
                   Redeemed
                 </th>
                 <th
@@ -78,6 +106,9 @@ function BiddingHistory() {
                 >
                   Users
                 </th>
+                <th scope="col" className="relative px-6 py-3">
+                  <span className="sr-only">Redeem</span>
+                </th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
@@ -96,8 +127,11 @@ function BiddingHistory() {
                     <td className="px-6 py-4 text-sm text-gray-500">
                       {bid.winner && bid.winner.username}
                     </td>
+                    <td className="px-6 py-4 text-sm text-gray-500">
+                      {bid.winner && bid.winner.phonenumber}
+                    </td>
                     <td className="px-6 py-4  text-sm text-gray-500">
-                      {bid.redeem_status ? "Redeemed" : "Pending"}
+                      {bid.redeemstatus ? "Redeemed" : "Pending"}
                     </td>
                     <td className="px-6 py-4  text-sm text-gray-500">
                       {bid.total_bids}
@@ -110,6 +144,16 @@ function BiddingHistory() {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                       {bid.total_users}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                      {!bid.redeemstatus && (
+                        <button
+                          onClick={() => redeemItem(bid.roomid)}
+                          className="text-red-500 pl-5"
+                        >
+                          Redeem
+                        </button>
+                      )}
                     </td>
                   </tr>
                 ))}
