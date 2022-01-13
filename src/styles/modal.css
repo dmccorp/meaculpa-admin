@@ -44,4 +44,5 @@
 .user_mobile{
     display: flex;
     justify-content: right;
+    flex: 1;
 }
