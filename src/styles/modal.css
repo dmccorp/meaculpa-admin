@@ -1,0 +1,47 @@
+.modal_wrap{
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+.modal{
+    background-color: #fff;
+    padding: 10px 8px;
+    border-radius: 20px;
+    border: 1px solid #919191;
+    box-shadow: 10px 5px 5px #919191;
+}
+
+.modal_content{
+    display: flex;
+    flex-direction: column;
+}
+
+.close{
+    text-align: right;
+    cursor: pointer;
+    font-size: 23px;
+}
+
+.modal tr{
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.modal .userlist_wrap{
+    display: block;
+    margin: 10px 20px;
+    overflow: scroll;
+    max-height: 300px;
+    max-width: 400px;
+}
+
+.user_name{
+    margin-right: 40px;
+}
+
+.user_mobile{
+    display: flex;
+    justify-content: right;
+}

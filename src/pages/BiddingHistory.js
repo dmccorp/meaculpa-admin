@@ -5,9 +5,13 @@ import Pagination from "react-js-pagination";
 import { API_URL } from "..";
 import { getBidHistory } from "../api/apiBidding";
 import { itemCountLarge } from "../common/constant";
+import Modal from "../components/Modal";
+import "../styles/modal.css";
 
 function BiddingHistory() {
   const [bids, setBids] = useState({}),
+    [isModelOpen, setModelOpen] = useState(false),
+    [allUsers, setAllusers] = useState([]),
     [activePage, setActivePage] = useState(1),
     handlePageChange = (page) => {
       setActivePage(page);
@@ -39,6 +43,17 @@ function BiddingHistory() {
     });
   }
 
+  function handleModelClick(bid) {
+    if (bid && bid.all_users.length > 0) {
+      setAllusers(bid && bid.all_users);
+      setModelOpen(!isModelOpen);
+    }
+  }
+
+  function handleClose() {
+    setModelOpen(!isModelOpen);
+  }
+
   useEffect(() => {
     fetchBids();
   }, []);
@@ -46,7 +61,12 @@ function BiddingHistory() {
   return (
     <div className="">
       <div className="">
-        <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+        <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg relative">
+          {isModelOpen && (
+            <div className="absolute modal_wrap">
+              <Modal allUsers={allUsers} handleClose={handleClose} />
+            </div>
+          )}
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
@@ -113,7 +133,7 @@ function BiddingHistory() {
               {bids &&
                 bids.rooms &&
                 bids.rooms.map((bid) => (
-                  <tr key={bid.roomid}>
+                  <tr key={bid.roomid} onClick={() => handleModelClick(bid)}>
                     <td className="px-6 py-4 text-sm text-gray-500">
                       <div className="truncate" style={{ maxWidth: "150px" }}>
                         {bid.productname}
