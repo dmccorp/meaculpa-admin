@@ -21,6 +21,6 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
           ARGS: "-rltgoDzvO --delete"
           SOURCE: "build/"
-          REMOTE_HOST: "meaculpa.basithkunimal.com"
-          REMOTE_USER: "ubuntu"
-          TARGET: "meaculpa-admin"
+          REMOTE_HOST: "app.meaculpa.in"
+          REMOTE_USER: "runner"
+          TARGET: "fe/meaculpa-admin"
