@@ -7,7 +7,6 @@ import { API_URL } from "..";
 import moment from "moment";
 import "../common/styles.css";
 import { itemCountMedium } from "../common/constant";
-import { io } from "socket.io-client";
 
 function Table({ timeFrame }) {
   const allData = useRef();
@@ -29,12 +28,6 @@ function Table({ timeFrame }) {
 
   useEffect(() => {
     getUserDetails();
-    const socket = io.connect(API_URL);
-    socket.on("connect", () => console.log("connected"));
-    socket.on(`bid/000`, (msg) => {
-      const bid = JSON.parse(msg);
-      console.log(bid);
-    });
   }, []);
 
   useEffect(() => {
