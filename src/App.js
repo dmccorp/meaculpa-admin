@@ -57,7 +57,7 @@ function App() {
   if (!auth) return <Login />;
   return (
     <AppContext.Provider value={appContext}>
-      <Router basename="/admin">
+      <Router>
         <Dashboard />
       </Router>
     </AppContext.Provider>
