@@ -4,7 +4,7 @@ import UpcomingBid from "../components/UpcomingBid";
 import { getOngoingRooms, getUpcomingRooms } from "../api/apiBidding";
 
 function Home() {
-  const [upcoming, setUpcoming] = useState([]),
+  const [upcoming, setUpcoming] = useState({ rooms: [] }),
     [activeUpcomingPage, setUpcomingPage] = useState(1),
     [ongoing, setOngoing] = useState([]),
     handleUpcomingPageChange = (page) => {
@@ -31,7 +31,7 @@ function Home() {
   return (
     <>
       <div className="flex flex-col mb-8">
-        <OngoingBid room={upcoming[0]} />
+        <OngoingBid room={upcoming.rooms[0]} />
       </div>
       <div className="flex flex-col">
         <h2 className="text-base mb-2">Upcoming Bids</h2>
